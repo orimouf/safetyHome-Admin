@@ -1,8 +1,8 @@
-.single {
+.package {
     display: flex;
     width: 100%;
 
-    .singleContainer {
+    .packageContainer {
         flex: 6;
 
         .top {
@@ -31,7 +31,7 @@
 
                 .item {
                     display: grid;
-                    gap: 30px;
+                    gap: 10px 30px;
                     grid-template-columns: auto auto auto auto ;
                     padding: 5px;
 
@@ -43,14 +43,11 @@
                     }
 
                     .itemTitle{
-                        margin-bottom: 10px;
                         color: #555;
                     }
 
                     .detailItem {
                         font-size: 14px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
 
                         .itemKey {
                             font-weight: bold;
@@ -87,11 +84,83 @@
         }
 
         .bottom {
-            display: block;
+            display: flex;
+            flex-direction: column;
             -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
             box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
             padding: 20px;
             margin: 10px 20px;
+
+            .cellWithStatus {
+                padding: 5px;
+                border-radius: 5px;
+            
+                &.Sended {
+                    color: green;
+                    background-color: rgba(0, 128, 0, 0.151);
+                } 
+            
+                &.Pending {
+                    color: goldenrod;
+                    background-color: rgba(189, 189, 3, 0.103);
+                }
+            }
+            
+            .cellWithPercentage {
+                color: gray;
+            }
+            
+            .cellWithDate {
+                .days {
+                    font-size: xx-small;
+                    color: gray;
+                }
+            }
+            
+            .action {
+                display: flex;
+                padding: 5px;
+                border-radius: 5px;
+                width: 100%;
+                justify-content: center;
+            
+                &.Send {
+                    color: green;
+                    background-color: rgba(0, 128, 0, 0.151);
+                    border: 1px solid green;
+            
+                    &:hover {
+                        cursor: pointer;
+                        color: white;
+                        background-color: rgb(0 128 0 / 75%);
+                    }
+                }
+            
+                &.View {
+                    color: rgb(0 108 164);
+                    background-color: rgb(0 108 164 / 29%);
+                    border: 1px solid rgb(0 108 164);
+            
+                    &:hover {
+                        cursor: pointer;
+                        color: white;
+                        background-color: rgb(0 108 164 / 75%);
+                    }
+                }
+
+                &.Wait {
+                    color: rgb(128, 117, 0);
+                    background-color: rgba(128, 126, 0, 0.151);
+                    border: 1px solid rgb(128, 115, 0);
+                    pointer-events: none;
+                }
+            
+            }
+        }
+
+        .dataTable {
+            height: 100%;
+            padding: 20px;
         }
         
         .title {

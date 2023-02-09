@@ -6,22 +6,13 @@
         flex: 6;
 
         .top {
-            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-            box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-            padding: 10px;
-            margin: 20px;
-            display: flex;
-
-            h1 {
-                color: lightgray;
-                font-size: 20px;
-            }
+            text-align: center;
         }
 
         .bottom {
             -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
             box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-            padding: 10px;
+            padding: 25px;
             margin: 20px;
             display: flex;
 
@@ -50,7 +41,7 @@
                     justify-content: space-around;
 
                     button {
-                        width: 150px;
+                        width: 100%;
                         padding: 10px;
                         border: none;
                         background-color: teal;
@@ -79,6 +70,48 @@
                             border: none;
                             border-bottom: 1px solid gray;
                         }
+
+                        #msgRequest {
+                            display: none;
+                            padding: 10px;
+                            width: 300px;
+                            border: 1px solid red;
+                            border-radius: 5px;
+                            text-align: center;
+                            background-color: #ff000026;
+                            color: red;
+                        }
+
+                        .sendBtn {
+                            div {
+                                display: none;
+                                height: 20px;
+                                
+                                .icnSpinner {
+                                    animation: spin-animation 1s infinite;
+                                    display: inline-block;
+                                  }
+                                  
+                                @keyframes spin-animation {
+                                    0% { transform: rotate(0deg); }
+                                    100% { transform: rotate(-359deg); }
+                                }
+                            }
+                        }
+                    }
+
+                    .checkbox {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        // justify-content: space-evenly;
+
+                        #checkboxAdmin, #checkboxInvester {
+                            width: 20px;
+                            height: 15px;
+                            cursor: pointer;
+                        }    
+                        
                     }
                 }
             }

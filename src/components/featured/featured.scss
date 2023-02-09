@@ -4,7 +4,7 @@
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
     padding: 10px;
 
-    .top {
+    .featuredTop {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -16,7 +16,7 @@
         }        
     }
 
-    .bottom {
+    .featuredBottom {
         padding: 20px;
         display: flex;
         flex-direction: column;
@@ -29,21 +29,47 @@
             height: 100px;
         }
 
-        .title {
-            font-weight: 500;
-            color: gray;
+        .featuredSales {
+            width: -webkit-fill-available;
+            padding: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        
+            .title {
+                font-weight: 500;
+                color: gray;
+                margin-bottom: 0;
+            }
+    
+            .amount {
+                color: green;
+                font-size: 20px;
+            }
         }
 
-        .amount {
-            font-size: 30px;
+        .featuredCapitalProfit {
+            width: -webkit-fill-available;
+            padding: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        
+            .title {
+                font-size: small;
+                font-weight: 400;
+                color: gray;
+                margin-bottom: 0;
+            }
+    
+            .amount {
+                color: rgb(0, 0, 0);
+                font-size: 16px;
+            }
         }
-
-        .desc {
-            font-weight: 300;
-            font-size: 12px;
-            color: gray;
-            text-align: center;
-        }
+        
 
         .summary {
             width: 100%;
@@ -62,6 +88,7 @@
                 .itemResult {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
                     margin-top: 10px;
                     font-size: 14px;
                 

@@ -1,12 +1,14 @@
 import './sidebar.scss'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import CategoryIcon from '@mui/icons-material/Category';
+import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import QueryStatsOutlinedIcon from '@mui/icons-material/QueryStatsOutlined';
 import NotificationImportantOutlinedIcon from '@mui/icons-material/NotificationImportantOutlined';
-import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
+// import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import Filter7Icon from '@mui/icons-material/Filter7';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
@@ -14,10 +16,17 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { DarkModeContext } from '../../context/darkModeContext';
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { logout_ } from '../../context/authContext/ApiCalls';
 
 const Sidebar = () => {
 
-    const { dispatch } = useContext(DarkModeContext)
+    const { dispatchMode } = useContext(DarkModeContext)
+    const { dispatch } = useContext(AuthContext);
+
+  const handleLogout = (e) => {
+    logout_(dispatch);
+  }
 
   return (
     <div className='sidebar'>
@@ -43,10 +52,10 @@ const Sidebar = () => {
                         <span>Users</span>
                     </li>
                 </Link>
-                <Link to="/products" style={{ textDecoration: "none" }}>
+                <Link to="/investors" style={{ textDecoration: "none" }}>
                     <li>
-                        <CategoryIcon className="icon" />
-                        <span>Products</span>
+                        <CurrencyExchangeOutlinedIcon className="icon" />
+                        <span>Investors</span>
                     </li>
                 </Link>
                 <Link to="/" style={{ textDecoration: "none" }}>
@@ -75,10 +84,16 @@ const Sidebar = () => {
                     </li>
                 </Link>
                 <p className="title">SERVICE</p>
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/setprofit" style={{ textDecoration: "none" }}>
                     <li>
-                        <HealthAndSafetyOutlinedIcon className="icon" />
-                        <span>System health</span>
+                        <Filter7Icon className="icon" />
+                        <span>Set Profit</span>
+                    </li>
+                </Link>
+                <Link to="/withdrawal" style={{ textDecoration: "none" }}>
+                    <li>
+                        <AttachMoneyIcon className="icon" />
+                        <span>Withdrawal</span>
                     </li>
                 </Link>
                 <Link to="/" style={{ textDecoration: "none" }}>
@@ -100,7 +115,7 @@ const Sidebar = () => {
                         <span>Profile</span>
                     </li>
                 </Link>
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/" onClick={handleLogout} style={{ textDecoration: "none" }}>
                     <li>
                         <LogoutOutlinedIcon className="icon" />
                         <span>Logout</span>
@@ -109,8 +124,8 @@ const Sidebar = () => {
             </ul>
         </div>
         <div className="bottom">
-            <div className="colorOption" onClick={() => dispatch({type:"LIGHT"})}></div>
-            <div className="colorOption" onClick={() => dispatch({type:"DARK"})}></div>
+            <div className="colorOption" onClick={() => dispatchMode({type:"LIGHT"})}></div>
+            <div className="colorOption" onClick={() => dispatchMode({type:"DARK"})}></div>
         </div>
     </div>
   )
