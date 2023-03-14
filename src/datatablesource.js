@@ -1,4 +1,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+
 
 //temporary dtat
 export const userColumns = [
@@ -105,39 +107,29 @@ export const weeklyProfitColumns = [
 ]
 
 export const withdrawalColumns = [
-    { field: "id", headerName: "ID", width: 80},
-    { field: "capital", headerName: "Capital", width: 120},
-    { field: "month", headerName: "Months", width: 120 },
-    { field: "profitPorcent", headerName: "Percentage", width: 120,
+    { field: "id", headerName: "ID", width: 300},
+    { field: "profitPorcent", headerName: "Percentage", width: 200,
     renderCell:(params)=>{
         return(
             <div className={`cellWithPercentage`}>{params.row.profitPorcent} %</div>
         )
     }},
-    { field: "profit", headerName: "Profit", width: 120 },
-    { field: "status", headerName: "Status", width: 100, 
+    { field: "status", headerName: "Status", width: 180, 
     renderCell:(params)=>{
         return(
             <div className={`cellWithStatus ${params.row.status}`}>{params.row.status}</div>
         )
     }},
-    { field: "date", headerName: "Date", width: 220,
-    renderCell:(params)=>{
-        return(
-            <div className={`cellWithDate`}>
-                {params.row.date}  <span className="days">
-                          ( {(params.row.leftDays < 0) ? Math.abs(params.row.leftDays) + " Days ago": params.row.leftDays+" Days Left"} )
-                      </span>
-            </div>
-        )
-    }},
-    { field: "action", headerName: "Action", width: 160, 
+    { field: "date", headerName: "Date", width: 300},
+    { field: "action", headerName: "Action", width: 200, 
     renderCell:(params)=>{
         return(
             (params.row.status === "Sended") ? 
-            <div className="action View" >View</div> : 
-                params.row.leftDays <= 0 ? <div className="action Send" >Send</div> :
-                <div className="action Wait" >Coming soon</div> 
+            <div className="action View" >View in Profil</div> : 
+                <Link to="/pay" style={{ textDecoration: "none" }}>
+                    <div className="action Send" >Withdrawal</div>
+                </Link>
+                
         )
     }}
 ]

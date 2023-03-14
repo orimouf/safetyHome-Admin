@@ -13,6 +13,7 @@ import { AuthContext } from './context/authContext/AuthContext';
 import Package from './pages/package/Package';
 import Setprofit from './pages/setprofit/Setprofit';
 import Withdrawal from './pages/withdrawal/Withdrawal';
+import Pay from './pages/pay/Pay';
 
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
             </Route>
             <Route path='withdrawal'>
               <Route index element={<Withdrawal title="Withdrawal" />} />
+            </Route>
+            <Route path='pay'>
+              <Route index element={<Pay title="Pay" />} />
             </Route>
           </>)
           || <Route path='*' element={<Error404 />}/> }

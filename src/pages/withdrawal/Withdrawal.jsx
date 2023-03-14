@@ -19,66 +19,48 @@ const Withdrawal = () => {
     useEffect(function () {
         
         const fetchInvesterData = async () => {
-            // await axios.get(`../investors/`, {
-            //   headers: { token: `Bearer ${accessTokenObj}` }
-            // })
-            // .then(res => {
-            //     const investors = res.data
-            //     let array = []
-            //     investors.map(async item => {
-                    await axios.get(`../packages/`, {
-                        headers: { token: `Bearer ${accessTokenObj}` }
-                    })
-                    .then(res => {
-                        const data = res.data  
-                        console.log(data);
-                        const filterData = data.filter(e => {
-                            e.profit.map(ele => Object.assign(ele, {"startDate": e.startDate}) )
-                            setArrayData(arrayData => [...arrayData, e.profit].flat())
-                        })
-                        // const filterData = data.map((item) => {
-                        //     item.profit.filter((e, i) => {
-                        //         const start = Date.parse( DateForma(weekStart, "FM") )
-                        //         const end = Date.parse( DateForma(weekEnd, "FM") )
-                        //         const thisDate = Date.parse( DateForma(addMonths(new Date(item.startDate), i+1).toLocaleDateString("en-EN"), "FM") )
-                        //         console.log(start)
-                        //         console.log(end)
-                        //         console.log(thisDate)
-                        //         if(thisDate >= start && thisDate <= end){
-                        //             return e
-                        //         }
-                        //     })
-                        // })  
-                        console.log(filterData);
-                        // data.profit.map((receive, i) => {
-                        //     const Obj = {
-                        //         id: receive.id,
-                        //         capital: "$" + item.capitalAmount,
-                        //         month: receive.month,
-                        //         profit: "$" + (parseInt(item.capitalAmount) * ( receive.porcentage / 100)).toFixed(0),
-                        //         profitPorcent: receive.porcentage,
-                        //         date: addMonths(new Date(data.startDate), i+1).toLocaleDateString("fr-FR"),
-                        //         leftDays: Math.ceil((new Date(addMonths(new Date(data.startDate), i+1)).getTime() - new Date().getTime()) / (1000 * 3600 * 24)),
-                        //         status: (data.checkinSend) ? "Sended" : "Pending",
-                        //     }
-                            
-                        //     if(thisDate >= start && thisDate <= end) {
-                        //         setArrayData(arrayData => [...arrayData, Obj])
-                        //         document.getElementsByClassName("weeklyWithdrawal")[0].style = "opacity: 1;"
-                        //         document.getElementsByClassName("weeklyWithdrawal")[0].children[0].style.display = "block"
-                        //         document.getElementsByClassName("weeklyWithdrawal")[0].children[1].style.display = "none"
-                        //         setWeekEnd([])
-                        //         setWeekStart([])
-                        //     } else {
-                        //         document.getElementById("msgRequest").style.display = "block"
-                        //         document.getElementById("msgRequest").innerHTML = `No Profit to withdrawal in this <b> Time Period</b>`
-                        //     }
-                        // })
-                    })
-                    .catch(function (error) {console.log(error.response)})
-        //         })
-        //     })
-        //     .catch(function (error) {console.log(error.response)})
+          await axios.get(`../packages/`, {
+              headers: { token: `Bearer ${accessTokenObj}` }
+          })
+          .then(res => {
+              let notEmpty = false
+              const data = res.data  
+              const filterData = data.filter(e => {
+                e.profit.filter((ele, i) => {
+                  const start = Date.parse( DateForma(weekStart, "FM") )
+                  const end = Date.parse( DateForma(weekEnd, "FM") )
+                  const thisDate = Date.parse( DateForma(addMonths(new Date(e.startDate), i+1).toISOString(), "DB") )
+                  if(thisDate >= start && thisDate <= end){
+                    document.getElementById("msgRequest").style.display = "none"
+                document.getElementById("msgRequest").innerHTML = ""
+                    notEmpty = true
+                    const Obj = {
+                      id: ele.id,
+                      profitPorcent: ele.porcentage,
+                      date: DateForma(addMonths(new Date(e.startDate), i+1).toISOString(), "DB"),
+                      status: (data.checkinSend) ? "Sended" : "Pending",
+                    }
+                    setArrayData(arrayData => [...arrayData, Obj].flat())
+                    document.getElementsByClassName("weeklyWithdrawal")[0].style = "opacity: 1;"
+                    document.getElementsByClassName("weeklyWithdrawal")[0].children[0].style.display = "block"
+                    document.getElementsByClassName("weeklyWithdrawal")[0].children[1].style.display = "none"
+                    setWeekEnd([])
+                    setWeekStart([])
+                  }
+                })
+                
+              })
+              if (!notEmpty) {
+                document.getElementById("msgRequest").style.display = "block"
+                document.getElementById("msgRequest").innerHTML = `No Profit to withdrawal in this <b> Time Period</b>`
+                document.getElementsByClassName("weeklyWithdrawal")[0].style = "opacity: 1;"
+                document.getElementsByClassName("weeklyWithdrawal")[0].children[0].style.display = "block"
+                document.getElementsByClassName("weeklyWithdrawal")[0].children[1].style.display = "none"
+                setWeekEnd([])
+                setWeekStart([])
+              }                        
+          })
+          .catch(function (error) {console.log(error.response)})
         }
         
         if(weekEnd.length !== 0 && weekStart.length !== 0) fetchInvesterData();
@@ -165,15 +147,14 @@ const Withdrawal = () => {
         
         <div className="bottom dataTable">
             <h1 className="title">Last Transactions</h1>
-            {console.log(arrayData)}
-            {/* <DataGrid
+            <DataGrid
                 className="datagrid"
                 rows={arrayData}
                 columns={withdrawalColumns}
                 pageSize={12}
                 rowsPerPageOptions={[12]}
                 checkboxSelection
-            /> */}
+            />
         </div>
       </div>
     </div>
