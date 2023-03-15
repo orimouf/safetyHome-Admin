@@ -32,7 +32,7 @@ const Withdrawal = () => {
                   const thisDate = Date.parse( DateForma(addMonths(new Date(e.startDate), i+1).toISOString(), "DB") )
                   if(thisDate >= start && thisDate <= end){
                     document.getElementById("msgRequest").style.display = "none"
-                document.getElementById("msgRequest").innerHTML = ""
+                    document.getElementById("msgRequest").innerHTML = ""
                     notEmpty = true
                     const Obj = {
                       id: ele.id,
