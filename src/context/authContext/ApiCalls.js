@@ -10,10 +10,12 @@ export const login = async (user, dispatch) => {
         console.log("oki")
         const res = await axios.post("../auth/login", user)
         console.log("sss")
-        console.log(res.data)
+        console.log(res)
         res.data.isAdmin && dispatch(loginSuccess(res.data))
         msgLogin.style.display = "none"
     } catch (err) {
+        console.log("ERROR")
+        console.log(err)
         msgLogin.style.display = "block"
         msgLogin.innerHTML = err.response.data
         textLogin.innerHTML = "LOGIN"
