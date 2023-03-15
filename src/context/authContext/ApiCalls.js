@@ -7,10 +7,12 @@ export const login = async (user, dispatch) => {
     let loadingLogin = document.getElementsByClassName("icnSpinner")[0]
     dispatch(loginStart());
     try {
+        console.log("oki")
         const res = await axios.post("../auth/login", user)
+        console.log("sss")
+        console.log(res.data)
         res.data.isAdmin && dispatch(loginSuccess(res.data))
         msgLogin.style.display = "none"
-        console.log(res.data)
     } catch (err) {
         msgLogin.style.display = "block"
         msgLogin.innerHTML = err.response.data
